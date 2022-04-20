@@ -2,6 +2,7 @@
   <div>
     <router-view />
     <reload-prompt />
+    <tdesign-theme-generator />
   </div>
 </template>
 
