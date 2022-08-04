@@ -24,7 +24,7 @@ exports[`ConfigProvider ConfigProvider calendarVue demo works fine 1`] = `
             class="t-input__wrap t-select"
           >
             <div
-              class="t-input t-size-s t-is-readonly t-input--prefix t-input--suffix"
+              class="t-input t-size-s t-is-default t-is-readonly t-input--auto-width t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -37,6 +37,11 @@ exports[`ConfigProvider ConfigProvider calendarVue demo works fine 1`] = `
                 type="text"
                 unselectable="on"
               />
+              <span
+                class="t-input__input-pre"
+              >
+                2020
+              </span>
               <span
                 class="t-input__suffix t-input__suffix-icon"
               >
@@ -70,7 +75,7 @@ exports[`ConfigProvider ConfigProvider calendarVue demo works fine 1`] = `
             class="t-input__wrap t-select"
           >
             <div
-              class="t-input t-size-s t-is-readonly t-input--prefix t-input--suffix"
+              class="t-input t-size-s t-is-default t-is-readonly t-input--auto-width t-input--prefix t-input--suffix"
             >
               <div
                 class="t-input__prefix"
@@ -83,6 +88,11 @@ exports[`ConfigProvider ConfigProvider calendarVue demo works fine 1`] = `
                 type="text"
                 unselectable="on"
               />
+              <span
+                class="t-input__input-pre"
+              >
+                12
+              </span>
               <span
                 class="t-input__suffix t-input__suffix-icon"
               >
@@ -768,43 +778,42 @@ exports[`ConfigProvider ConfigProvider datePickerVue demo works fine 1`] = `
   class="tdesign-demo-item__locale-provider-date-picker"
 >
   <div
-    class="t-date-picker t-size-m"
+    class="t-date-picker"
   >
     <div
-      class="t-form-controls t-date-picker__popup-reference"
+      class="t-input__wrap t-select-input--empty"
     >
       <div
-        class="t-input__wrap"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
-          allowinput="0"
-          class="t-input t-size-m t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          autocomplete=""
+          class="t-input__inner"
+          placeholder="select date"
+          readonly="readonly"
+          type="text"
+          unselectable="on"
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <input
-            autocomplete=""
-            class="t-input__inner"
-            placeholder="select date"
-            type="text"
-            unselectable="off"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-icon t-icon-calendar"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
           >
-            <svg
-              class="t-icon t-icon-calendar"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -813,43 +822,43 @@ exports[`ConfigProvider ConfigProvider datePickerVue demo works fine 1`] = `
   <br />
    
   <div
-    class="t-date-picker t-size-m"
+    class="t-date-picker"
+    range=""
   >
     <div
-      class="t-form-controls t-date-picker__popup-reference"
+      class="t-input__wrap t-select-input--empty"
     >
       <div
-        class="t-input__wrap"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
-          allowinput="0"
-          class="t-input t-size-m t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          autocomplete=""
+          class="t-input__inner"
+          placeholder="select date"
+          readonly="readonly"
+          type="text"
+          unselectable="on"
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <input
-            autocomplete=""
-            class="t-input__inner"
-            placeholder="select date"
-            type="text"
-            unselectable="off"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-icon t-icon-calendar"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
           >
-            <svg
-              class="t-icon t-icon-calendar"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -858,43 +867,42 @@ exports[`ConfigProvider ConfigProvider datePickerVue demo works fine 1`] = `
   <br />
    
   <div
-    class="t-date-picker t-size-m t-date-picker--month-picker"
+    class="t-date-picker"
   >
     <div
-      class="t-form-controls t-date-picker__popup-reference"
+      class="t-input__wrap t-select-input--empty"
     >
       <div
-        class="t-input__wrap"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
-          allowinput="0"
-          class="t-input t-size-m t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          autocomplete=""
+          class="t-input__inner"
+          placeholder="select month"
+          readonly="readonly"
+          type="text"
+          unselectable="on"
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <input
-            autocomplete=""
-            class="t-input__inner"
-            placeholder="select month"
-            type="text"
-            unselectable="off"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-icon t-icon-calendar"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
           >
-            <svg
-              class="t-icon t-icon-calendar"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -903,43 +911,43 @@ exports[`ConfigProvider ConfigProvider datePickerVue demo works fine 1`] = `
   <br />
    
   <div
-    class="t-date-picker t-size-m t-date-picker--month-picker"
+    class="t-date-picker"
+    range=""
   >
     <div
-      class="t-form-controls t-date-picker__popup-reference"
+      class="t-input__wrap t-select-input--empty"
     >
       <div
-        class="t-input__wrap"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
-          allowinput="0"
-          class="t-input t-size-m t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          autocomplete=""
+          class="t-input__inner"
+          placeholder="select month"
+          readonly="readonly"
+          type="text"
+          unselectable="on"
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <input
-            autocomplete=""
-            class="t-input__inner"
-            placeholder="select month"
-            type="text"
-            unselectable="off"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-icon t-icon-calendar"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
           >
-            <svg
-              class="t-icon t-icon-calendar"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -948,43 +956,42 @@ exports[`ConfigProvider ConfigProvider datePickerVue demo works fine 1`] = `
   <br />
    
   <div
-    class="t-date-picker t-size-m t-date-picker--month-picker"
+    class="t-date-picker"
   >
     <div
-      class="t-form-controls t-date-picker__popup-reference"
+      class="t-input__wrap t-select-input--empty"
     >
       <div
-        class="t-input__wrap"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
-          allowinput="0"
-          class="t-input t-size-m t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          autocomplete=""
+          class="t-input__inner"
+          placeholder="select year"
+          readonly="readonly"
+          type="text"
+          unselectable="on"
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <input
-            autocomplete=""
-            class="t-input__inner"
-            placeholder="select year"
-            type="text"
-            unselectable="off"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-icon t-icon-calendar"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
           >
-            <svg
-              class="t-icon t-icon-calendar"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -993,43 +1000,43 @@ exports[`ConfigProvider ConfigProvider datePickerVue demo works fine 1`] = `
   <br />
    
   <div
-    class="t-date-picker t-size-m t-date-picker--month-picker"
+    class="t-date-picker"
+    range=""
   >
     <div
-      class="t-form-controls t-date-picker__popup-reference"
+      class="t-input__wrap t-select-input--empty"
     >
       <div
-        class="t-input__wrap"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
-          allowinput="0"
-          class="t-input t-size-m t-input--suffix"
+          class="t-input__prefix"
+        />
+        <input
+          autocomplete=""
+          class="t-input__inner"
+          placeholder="select year"
+          readonly="readonly"
+          type="text"
+          unselectable="on"
+        />
+        <span
+          class="t-input__suffix t-input__suffix-icon"
         >
-          <input
-            autocomplete=""
-            class="t-input__inner"
-            placeholder="select year"
-            type="text"
-            unselectable="off"
-          />
-          <span
-            class="t-input__suffix t-input__suffix-icon"
+          <svg
+            class="t-icon t-icon-calendar"
+            fill="none"
+            height="1em"
+            viewBox="0 0 16 16"
+            width="1em"
           >
-            <svg
-              class="t-icon t-icon-calendar"
-              fill="none"
-              height="1em"
-              viewBox="0 0 16 16"
-              width="1em"
-            >
-              <path
-                d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
-                fill="currentColor"
-                fill-opacity="0.9"
-              />
-            </svg>
-          </span>
-        </div>
+            <path
+              d="M10 3H6V1.5H5V3H3a1 1 0 00-1 1v9a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1h-2V1.5h-1V3zM5 5h1V4h4v1h1V4h2v2H3V4h2v1zM3 7h10v6H3V7z"
+              fill="currentColor"
+              fill-opacity="0.9"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   </div>
@@ -1542,7 +1549,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
             style="width: 400px;"
           >
             <div
-              class="t-input t-size-m"
+              class="t-input t-size-m t-is-default"
             >
               <input
                 autocomplete=""
@@ -1582,7 +1589,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
             style="width: 400px;"
           >
             <div
-              class="t-input t-size-m t-input--suffix"
+              class="t-input t-size-m t-is-default t-input--suffix"
             >
               <input
                 autocomplete=""
@@ -1664,7 +1671,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-size-m t-input--suffix"
+              class="t-input t-size-m t-is-default t-input--suffix"
             >
               <input
                 autocomplete=""
@@ -2192,7 +2199,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
             class="t-input__wrap"
           >
             <div
-              class="t-input t-size-m t-input--suffix"
+              class="t-input t-size-m t-is-default t-input--suffix"
             >
               <input
                 autocomplete=""
@@ -2246,7 +2253,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
       class="t-input__wrap t-select-input--empty t-select"
     >
       <div
-        class="t-input t-size-m t-is-readonly t-input--prefix t-input--suffix"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
           class="t-input__prefix"
@@ -2293,7 +2300,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
       class="t-input__wrap t-select-input--empty t-select"
     >
       <div
-        class="t-input t-size-m t-is-readonly t-input--prefix t-input--suffix"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
           class="t-input__prefix"
@@ -2340,7 +2347,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
       class="t-input__wrap t-select-input--empty t-select"
     >
       <div
-        class="t-input t-size-m t-is-readonly t-input--prefix t-input--suffix"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
       >
         <div
           class="t-input__prefix"
@@ -2389,58 +2396,86 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
   <br />
    
   <div
-    class="t-cascader t-size-m t-cascader__popup"
+    class="t-input__wrap t-select-input--empty t-cascader"
     style="width: 400px;"
   >
-    <span
-      class="t-cascader__placeholder"
+    <div
+      class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
     >
-      select cascader data
-    </span>
-    <svg
-      class="t-fake-arrow t-cascader__icon"
-      fill="none"
-      height="16"
-      viewBox="0 0 16 16"
-      width="16"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-        stroke="black"
-        stroke-opacity="0.9"
-        stroke-width="1.3"
+      <div
+        class="t-input__prefix"
       />
-    </svg>
+      <input
+        autocomplete=""
+        class="t-input__inner"
+        placeholder="select cascader data"
+        readonly="readonly"
+        type="text"
+        unselectable="on"
+      />
+      <span
+        class="t-input__suffix t-input__suffix-icon"
+      >
+        <svg
+          class="t-fake-arrow t-cascader__icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
+          />
+        </svg>
+      </span>
+    </div>
   </div>
    
   <br />
   <br />
    
   <div
-    class="t-cascader t-size-m t-cascader__popup"
+    class="t-input__wrap t-select-input--empty t-cascader"
     style="width: 400px;"
   >
-    <span
-      class="t-cascader__placeholder"
+    <div
+      class="t-input t-size-m t-is-default t-is-readonly t-input--prefix t-input--suffix"
     >
-      select without data in Cascader
-    </span>
-    <svg
-      class="t-fake-arrow t-cascader__icon"
-      fill="none"
-      height="16"
-      viewBox="0 0 16 16"
-      width="16"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
-        stroke="black"
-        stroke-opacity="0.9"
-        stroke-width="1.3"
+      <div
+        class="t-input__prefix"
       />
-    </svg>
+      <input
+        autocomplete=""
+        class="t-input__inner"
+        placeholder="select without data in Cascader"
+        readonly="readonly"
+        type="text"
+        unselectable="on"
+      />
+      <span
+        class="t-input__suffix t-input__suffix-icon"
+      >
+        <svg
+          class="t-fake-arrow t-cascader__icon"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.75 5.7998L7.99274 10.0425L12.2361 5.79921"
+            stroke="black"
+            stroke-opacity="0.9"
+            stroke-width="1.3"
+          />
+        </svg>
+      </span>
+    </div>
   </div>
    
   <br />
@@ -2459,6 +2494,9 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
         see empty data in TreeSelect
       </span>
       <span
+        class="t-tree-select t-tag-prefix"
+      />
+      <span
         class="t-tag t-tag--default t-size-m t-tag--dark"
         style="display: none;"
       >
@@ -2469,7 +2507,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
         style="display: none;"
       >
         <div
-          class="t-input t-size-m"
+          class="t-input t-size-m t-is-default"
         >
           <input
             autocomplete=""
@@ -2554,6 +2592,9 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
         see loading text in TreeSelect
       </span>
       <span
+        class="t-tree-select t-tag-prefix"
+      />
+      <span
         class="t-tag t-tag--default t-size-m t-tag--dark"
         style="display: none;"
       >
@@ -2564,7 +2605,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
         style="display: none;"
       >
         <div
-          class="t-input t-size-m"
+          class="t-input t-size-m t-is-default"
         >
           <input
             autocomplete=""
@@ -2633,6 +2674,9 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
         tree select
       </span>
       <span
+        class="t-tree-select t-tag-prefix"
+      />
+      <span
         class="t-tag t-tag--default t-size-m t-tag--dark"
         style="display: none;"
       >
@@ -2642,7 +2686,7 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
         class="t-input__wrap t-select__input"
       >
         <div
-          class="t-input t-size-m"
+          class="t-input t-size-m t-is-default"
         >
           <input
             autocomplete=""
@@ -2715,18 +2759,21 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
   <br />
    
   <div
-    class="t-time-picker__group t-time-picker t-size-m"
+    class="t-time-picker"
   >
     <div
-      class="t-input__wrap"
+      class="t-input__wrap t-select-input--empty"
     >
       <div
-        class="t-input t-size-m t-input--suffix"
+        class="t-input t-size-m t-is-default t-input--prefix t-input--suffix"
       >
+        <div
+          class="t-input__prefix"
+        />
         <input
           autocomplete=""
           class="t-input__inner"
-          placeholder=" "
+          placeholder="select time"
           type="text"
           unselectable="off"
         />
@@ -2753,16 +2800,6 @@ exports[`ConfigProvider ConfigProvider othersVue demo works fine 1`] = `
           </svg>
         </span>
       </div>
-    </div>
-    <div
-      class="t-time-picker__input"
-      size="medium"
-    >
-      <span
-        class="t-time-picker__input-placeholder"
-      >
-        select time
-      </span>
     </div>
   </div>
    
@@ -3170,7 +3207,7 @@ exports[`ConfigProvider ConfigProvider paginationVue demo works fine 1`] = `
       class="t-input__wrap t-select"
     >
       <div
-        class="t-input t-size-m t-is-readonly t-input--auto-width t-input--prefix t-input--suffix"
+        class="t-input t-size-m t-is-default t-is-readonly t-input--auto-width t-input--prefix t-input--suffix"
       >
         <div
           class="t-input__prefix"
@@ -3280,7 +3317,7 @@ exports[`ConfigProvider ConfigProvider paginationVue demo works fine 1`] = `
         class="t-input__wrap"
       >
         <div
-          class="t-input t-size-m"
+          class="t-input t-size-m t-is-default"
           ref="refInputElem"
         >
           <input
@@ -3430,10 +3467,6 @@ exports[`ConfigProvider ConfigProvider tableVue demo works fine 1`] = `
     <div
       class="t-table__content"
     >
-      <div
-        class="t-table__resize-line"
-        style="display: none; left: 10px; height: 10px;"
-      />
       <table
         class="t-table--layout-fixed"
       >
@@ -3654,6 +3687,13 @@ exports[`ConfigProvider ConfigProvider tableVue demo works fine 1`] = `
         <!---->
       </table>
     </div>
+    <div
+      style="opacity: 1;"
+    />
+    <div
+      class="t-table__resize-line"
+      style="display: none; height: 10px; left: 10px; bottom: 0px;"
+    />
   </div>
    
   <br />
@@ -3666,10 +3706,6 @@ exports[`ConfigProvider ConfigProvider tableVue demo works fine 1`] = `
     <div
       class="t-table__content"
     >
-      <div
-        class="t-table__resize-line"
-        style="display: none; left: 10px; height: 10px;"
-      />
       <table
         class="t-table--layout-fixed"
       >
@@ -4008,6 +4044,13 @@ exports[`ConfigProvider ConfigProvider tableVue demo works fine 1`] = `
         <!---->
       </table>
     </div>
+    <div
+      style="opacity: 1;"
+    />
+    <div
+      class="t-table__resize-line"
+      style="display: none; height: 10px; left: 10px; bottom: 0px;"
+    />
   </div>
    
   <br />

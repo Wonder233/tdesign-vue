@@ -1,17 +1,19 @@
 // 基础
 export * from './button';
-export * from './divider';
 export * from './icon';
 
 // 布局
 export * from './grid';
 export * from './layout';
+export * from './divider';
+export * from './space';
 
 // 导航
 export * from './affix';
 export * from './anchor';
 export * from './breadcrumb';
 export * from './dropdown';
+export * from './jumper';
 export * from './menu';
 export * from './pagination';
 export * from './steps';
@@ -25,6 +27,7 @@ export * from './date-picker';
 export * from './form';
 export * from './input-adornment';
 export * from './input';
+export * from './range-input';
 export * from './input-number';
 export * from './radio';
 export * from './select';

@@ -1,7 +1,7 @@
 import {
   defineComponent, ref, toRefs, watch,
 } from '@vue/composition-api';
-import { useConfig } from '../../config-provider';
+import { useConfig } from '../../hooks/useConfig';
 import useCommonClassName from '../../hooks/useCommonClassName';
 import props from '../props';
 import {
@@ -324,10 +324,7 @@ export default defineComponent({
     };
 
     return (
-      <div
-        class={[`${baseClassName}__panel`, this.disabled ? statusClassNames.disabled : false]}
-        onClick={(e: MouseEvent) => e.stopPropagation()}
-      >
+      <div class={[`${baseClassName}__panel`, this.disabled ? statusClassNames.disabled : false]}>
         <panel-header
           {...{
             props: {

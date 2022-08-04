@@ -11,7 +11,7 @@ import {
   onUpdated,
   provide,
 } from '@vue/composition-api';
-import { CreateElement, VNode } from 'vue';
+import { CreateElement } from 'vue';
 import isFunction from 'lodash/isFunction';
 import debounce from 'lodash/debounce';
 import get from 'lodash/get';
@@ -35,6 +35,7 @@ import SelectInput, {
 import FakeArrow from '../common-components/fake-arrow';
 import Option from './option';
 import SelectPanel from './select-panel';
+import { parseOptions } from './util';
 
 export type OptionInstance = InstanceType<typeof Option>;
 
@@ -57,6 +58,7 @@ export default defineComponent({
     const instance = getCurrentInstance();
     const { t, global } = useConfig('select');
     const renderTNode = useTNodeJSX();
+    const { classPrefix } = useConfig();
 
     // init values
     const {
@@ -93,8 +95,8 @@ export default defineComponent({
     const hasSlotOptions = ref(false);
     const focusing = ref(false);
     const labelInValue = ref(valueType.value === 'object');
-    const realValue = ref(keys.value?.value || 'value');
-    const realLabel = ref(keys.value?.label || 'label');
+    const realValue = computed(() => keys.value?.value || 'value');
+    const realLabel = computed(() => keys.value?.label || 'label');
     const realOptions = ref([] as Array<TdOptionProps>);
     const hoverIndex = ref(-1);
     const popupOpenTime = ref(250);
@@ -176,7 +178,7 @@ export default defineComponent({
     });
 
     const selectedValue = computed(() => (multiple.value ? selectedMultiple.value : selectedSingle.value));
-    const canFilter = computed(() => filterable.value || isFunction(props.filter));
+    const canFilter = computed(() => Boolean(props.filterable || global.value.filterable || isFunction(props.filter)));
     const isGroupOption = computed(() => {
       const firstOption = options.value?.[0];
       return !!(firstOption && 'group' in firstOption && 'children' in firstOption);
@@ -199,7 +201,7 @@ export default defineComponent({
       if (filterable.value) {
         // 仅有filterable属性时，默认不区分大小写过滤label
         return realOptions.value.filter(
-          (option) => option[realLabel.value].toString().toLowerCase().indexOf(tInputValue.value?.toString().toLowerCase())
+          (option) => option[realLabel.value]?.toString().toLowerCase().indexOf(tInputValue.value?.toString().toLowerCase())
             !== -1,
         );
       }
@@ -258,8 +260,8 @@ export default defineComponent({
     });
 
     const debounceOnRemote = debounce(() => {
-      instance.emit('search', tInputValue.value, context);
-      // emitEvent<Parameters<TdSelectProps['onSearch']>>(this, 'search', tInputValue.value);
+      instance.emit('search', tInputValue.value);
+      props.onSearch?.(tInputValue.value.toString());
     }, 300);
 
     watch(
@@ -423,9 +425,20 @@ export default defineComponent({
           break;
       }
     };
+
+    // 为 eventListener 加单独的 sync watch，以防组件在卸载的时候未能正常清除监听 (https://github.com/Tencent/tdesign-vue/issues/1170)
+    watch(
+      visible,
+      (val) => {
+        val && document.addEventListener('keydown', keydownEvent);
+        !val && document.removeEventListener('keydown', keydownEvent);
+      },
+      {
+        flush: 'sync',
+      },
+    );
+    // 其余逻辑使用默认 pre watch
     watch(visible, (val) => {
-      val && document.addEventListener('keydown', keydownEvent);
-      !val && document.removeEventListener('keydown', keydownEvent);
       !val && (showCreateOption.value = false);
       !val && tInputValue.value && setTInputValue('');
     });
@@ -460,6 +473,8 @@ export default defineComponent({
               setValue(tempValue, { trigger: 'check', e });
             }
           }
+        } else if (labelInValue.value) {
+          setValue(realOptions.value.filter((item) => get(item, realValue.value) === v)[0], { trigger: 'check', e });
         } else {
           setValue(v, { trigger: 'check', e });
         }
@@ -489,7 +504,7 @@ export default defineComponent({
       const tempValue = Array.isArray(value.value) ? [].concat(value.value) : [];
       tempValue.splice(index, 1);
       setValue(tempValue, { trigger: 'uncheck', e });
-      instance.emit('remove', { value: val, data: removeOption[0], e }, context);
+      instance.emit('remove', { value: val, data: removeOption[0], e });
     };
     const hideMenu = (context: PopupVisibleChangeContext) => {
       visible.value = false;
@@ -521,7 +536,8 @@ export default defineComponent({
       focusing.value = false;
       setTInputValue('');
       visible.value = false;
-      instance.emit('clear', { e }, context);
+      instance.emit('clear', { e });
+      props.onClear?.({ e });
     };
     const getOptions = (option: OptionInstance) => {
       // create option值不push到options里
@@ -549,18 +565,22 @@ export default defineComponent({
       });
     };
     const createOption = (value: string) => {
-      instance.emit('create', value, context);
+      instance.emit('create', value);
+      props.onCreate?.(value);
     };
     const focus = (value: string, context: { e: FocusEvent }) => {
       focusing.value = true;
-      instance.emit('focus', { value, e: context?.e }, context);
+      instance.emit('focus', { value, e: context?.e });
+      props.onFocus?.({ value, e: context?.e });
     };
     const blur = (value: string, context: { e: FocusEvent | KeyboardEvent }) => {
       focusing.value = false;
-      instance.emit('blur', { value, e: context?.e }, context);
+      instance.emit('blur', { value, e: context?.e });
+      props.onBlur?.({ value, e: context?.e });
     };
     const enter = (value: string, context: { e: KeyboardEvent }) => {
-      instance.emit('enter', { value, e: context?.e, inputValue: tInputValue.value }, context);
+      instance.emit('enter', { value, e: context?.e, inputValue: tInputValue.value });
+      props.onEnter?.({ value, e: context?.e, inputValue: tInputValue.value.toString() });
     };
     const getOverlayElm = (): HTMLElement => {
       let r;
@@ -586,36 +606,34 @@ export default defineComponent({
         isInit.value = true;
         hasSlotOptions.value = true;
       }
-
-      function parseOptions(vnodes: VNode[]): TdOptionProps[] {
-        if (!vnodes) return [];
-        return vnodes.reduce((options, vnode) => {
-          const { componentOptions } = vnode;
-          if (componentOptions?.tag === 't-option') {
-            const propsData = componentOptions.propsData as any;
-            return options.concat({
-              label: propsData.label,
-              value: propsData.value,
-              disabled: propsData.disabled,
-              content: componentOptions.children ? () => componentOptions.children : propsData.content,
-              default: propsData.default,
-            });
-          }
-          if (componentOptions?.tag === 't-option-group') {
-            return options.concat(parseOptions(componentOptions.children));
-          }
-          return options;
-        }, []);
-      }
     };
-
+    const updateScrollTop = (content: HTMLDivElement) => {
+      // 虚拟滚动不支持移动定位到选中项
+      if (props.scroll?.type === 'virtual') return;
+      const overlayEl = getOverlayElm();
+      if (!overlayEl) return;
+      const firstSelectedNode: HTMLDivElement = overlayEl?.querySelector(`.${classPrefix.value}-is-selected`);
+      nextTick(() => {
+        if (firstSelectedNode && content) {
+          const { paddingBottom } = getComputedStyle(firstSelectedNode);
+          const { marginBottom } = getComputedStyle(content);
+          const elementBottomHeight = parseInt(paddingBottom, 10) + parseInt(marginBottom, 10);
+          // 小于0时不需要特殊处理，会被设为0
+          const updateValue = firstSelectedNode.offsetTop
+            - content.offsetTop
+            - (content.clientHeight - firstSelectedNode.clientHeight)
+            + elementBottomHeight;
+          // eslint-disable-next-line no-param-reassign
+          content.scrollTop = updateValue;
+        }
+      });
+    };
     onMounted(() => {
       initOptions();
     });
     onUpdated(() => {
       initOptions();
     });
-
     provide('tSelect', {
       getOptions,
       reachMaxLimit,
@@ -670,6 +688,7 @@ export default defineComponent({
       renderValueDisplay,
       renderTNode,
       renderCollapsedItems,
+      updateScrollTop,
     };
   },
 
@@ -690,6 +709,7 @@ export default defineComponent({
   render(h) {
     const {
       multiple,
+      keys,
       autoWidth,
       bordered,
       readonly,
@@ -697,7 +717,6 @@ export default defineComponent({
       clearable,
       tDisabled,
       borderless,
-      empty,
       showCreateOption,
       displayOptions,
       isGroupOption,
@@ -727,12 +746,15 @@ export default defineComponent({
       handleTagChange,
       renderTNode,
       renderCollapsedItems,
+      updateScrollTop,
       // 虚拟滚动参数
       scroll,
     } = this;
     const valueDisplay = this.renderValueDisplay(h);
     const placeholderText = this.getPlaceholderText();
     const prefixIcon = () => renderTNode('prefixIcon');
+    const empty = renderTNode('empty');
+
     const collapsedItems = () => renderCollapsedItems();
     const { overlayClassName, ...restPopupProps } = popupProps || {};
     return (
@@ -745,6 +767,7 @@ export default defineComponent({
           readonly={readonly}
           allowInput={showFilter}
           multiple={multiple}
+          keys={keys}
           value={selectedValue}
           valueDisplay={valueDisplay}
           clearable={clearable}
@@ -758,6 +781,7 @@ export default defineComponent({
             ...inputProps,
           }}
           tagInputProps={{
+            autoWidth: true,
             ...tagInputProps,
           }}
           tagProps={tagProps}
@@ -778,6 +802,7 @@ export default defineComponent({
             'tag-change': handleTagChange,
           }}
           {...selectInputProps}
+          updateScrollTop={updateScrollTop}
         >
           <select-panel
             slot="panel"
@@ -795,6 +820,8 @@ export default defineComponent({
             realLabel={realLabel}
             realValue={realValue}
             scroll={scroll}
+            panelTopContent={this.panelTopContent}
+            panelBottomContent={this.panelBottomContent}
           />
         </SelectInput>
       </div>

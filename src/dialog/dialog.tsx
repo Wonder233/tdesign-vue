@@ -124,11 +124,11 @@ export default mixins(ActionMixin, getConfigReceiverMixins<Vue, DialogConfig>('d
       if (value) {
         const { scrollWidth } = this;
         if (this.isModal && !this.showInAttachedElement) {
-          if (scrollWidth > 0) {
+          if (scrollWidth > 0 && this.preventScrollThrough) {
             const bodyCssText = `position: relative;width: calc(100% - ${scrollWidth}px);`;
             document.body.style.cssText = bodyCssText;
           }
-          addClass(document.body, lockClass);
+          this.preventScrollThrough && addClass(document.body, lockClass);
           this.$nextTick(() => {
             const target = this.$refs.dialog as HTMLElement;
             if (mousePosition && target) {
@@ -184,25 +184,18 @@ export default mixins(ActionMixin, getConfigReceiverMixins<Vue, DialogConfig>('d
       if (e.code === 'Escape') {
         emitEvent<Parameters<TdDialogProps['onEscKeydown']>>(this, 'esc-keydown', { e });
         // 根据 closeOnEscKeydown 判断按下ESC时是否触发close事件
-        if (this.closeOnEscKeydown) {
-          this.emitCloseEvent({
-            trigger: 'esc',
-            e,
-          });
+        if (this.closeOnEscKeydown ?? this.global.closeOnEscKeydown) {
+          this.emitCloseEvent({ e, trigger: 'esc' });
         }
       }
     },
     overlayAction(e: MouseEvent) {
-      // 如果不是modal模式 默认没有mask 也就没有相关点击事件
-      if (this.mode !== 'modal') return;
-      emitEvent<Parameters<TdDialogProps['onOverlayClick']>>(this, 'overlay-click', { e });
       // 根据closeOnClickOverlay判断点击蒙层时是否触发close事件
-      // 根据当前点击元素和绑定元素判断是否是点击mask
-      if (e.target === e.currentTarget && this.closeOnOverlayClick) {
-        this.emitCloseEvent({
-          trigger: 'overlay',
-          e,
-        });
+      if (this.showOverlay && (this.closeOnOverlayClick ?? this.global.closeOnOverlayClick)) {
+        if (e.target === this.$refs.dialogPosition) {
+          emitEvent<Parameters<TdDialogProps['onOverlayClick']>>(this, 'overlay-click', { e });
+          this.emitCloseEvent({ e, trigger: 'overlay' });
+        }
       }
     },
     closeBtnAction(e: MouseEvent) {
@@ -348,9 +341,9 @@ export default mixins(ActionMixin, getConfigReceiverMixins<Vue, DialogConfig>('d
       const bodyClassName = this.theme === 'default' ? `${name}__body` : `${name}__body__icon`;
       // 此处获取定位方式 top 优先级较高 存在时 默认使用top定位
       return (
-        // /* 非模态形态下draggable为true才允许拖拽 */
+        // 非模态形态下draggable为true才允许拖拽
         <div class={this.wrapClass}>
-          <div class={this.positionClass} style={this.positionStyle} onClick={this.overlayAction}>
+          <div class={this.positionClass} style={this.positionStyle} onClick={this.overlayAction} ref="dialogPosition">
             <div key="dialog" ref="dialog" class={this.dialogClass} style={this.dialogStyle}>
               <div class={`${name}__header`}>
                 {this.getIcon()}
